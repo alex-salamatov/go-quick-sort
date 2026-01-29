@@ -25,7 +25,7 @@ func QuickSort(container []int) {
 	pivotIndex := rand.IntN(containerLen) //random index of element which we take as pivot
 	pivot := container[pivotIndex]
 
-	fmt.Printf("container = %v original pivot index = %d, pivot value = %d ", container, pivotIndex, pivot)
+	//fmt.Printf("container = %v original pivot index = %d, pivot value = %d ", container, pivotIndex, pivot)
 
 	var sortedPivotIndex int
 
@@ -49,30 +49,20 @@ func QuickSort(container []int) {
 		return
 	}
 
-	fmt.Printf("  sortedPivotIndex = %d, N LeftElements = %d N RightElements = %d \n", sortedPivotIndex, sortedPivotIndex, containerLen-sortedPivotIndex-1)
+	//fmt.Printf("  sortedPivotIndex = %d, N LeftElements = %d N RightElements = %d \n", sortedPivotIndex, sortedPivotIndex, containerLen-sortedPivotIndex-1)
 
 	left := container[0:sortedPivotIndex]                 //elements on the left + pivots
 	right := container[firstRightPivotIndex:containerLen] //elements on the right of pivot
 
-	pivotRelocated := false
+	swap(&container[pivotIndex], &container[sortedPivotIndex]) //pivot is placed to its place
 
 	for i, jRight := 0, 0; i < sortedPivotIndex; i++ {
-
-		if !pivotRelocated && left[i] == pivot {
-			swap(&left[i], &container[sortedPivotIndex]) //pivot is placed to its place
-			pivotRelocated = true
-		}
 
 		if left[i] < pivot {
 			continue //left[i] can stay in its position on the left of pivot
 		}
 
 		for k := jRight; k < len(right); k++ {
-
-			if !pivotRelocated && right[k] == pivot {
-				swap(&right[k], &container[sortedPivotIndex])
-				pivotRelocated = true
-			}
 
 			if right[k] < pivot {
 				swap(&left[i], &right[k])
@@ -82,7 +72,7 @@ func QuickSort(container []int) {
 		}
 	}
 
-	fmt.Printf("Output: %v - %d - %v\n", left, pivot, right)
+	//fmt.Printf("Output: %v - %d - %v\n", left, pivot, right)
 
 	QuickSort(left)  //apply quick sort to the left  from pivot part of container
 	QuickSort(right) //apply quick sort to the right from pivot part of container
@@ -91,7 +81,7 @@ func QuickSort(container []int) {
 func main() {
 	fmt.Println("Quick sort")
 
-	collection := []int{13, 4, 35, 104, 28, 6, 12, 200, 1, -5, 44, 55, 11, 99, -9, 21, -100, 67, -37, 12, -8, 1, 99, 99, 150, 6}
+	collection := []int{13, 4, 35, 104, 28, 6, 12, 200, 1, -5, 44, 55, 11, 99, -9, 21, -100, 67, -37, 12, -8, 1, 99, 99, 150, 6, -120}
 	fmt.Printf("Initial container = %v\n", collection)
 	QuickSort(collection)
 	fmt.Printf("Sorted container  = %v\n", collection)
